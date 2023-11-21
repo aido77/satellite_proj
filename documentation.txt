@@ -1,0 +1,63 @@
+
+                        || SATELLITE SCRAPE PROJECT ||
+
+this project is supposed to be a project where I scrape data from the internet 
+and use it to create a [3d??] model and plot the data that has been scraped
+
+iteration 1: using the defined "request" library to scrape data from celestrak NORAD elements
+    specifically the "disaster monitoring" satellites [about 10]
+for disaster modelling satellites, read here https://en.wikipedia.org/wiki/Disaster_Monitoring_Constellation
+and for the TLE [two line element] data is taken from https://celestrak.org/NORAD/elements/gp.php?GROUP=dmc&FORMAT=tle here
+to see what the values of the TLE mean, see here: https://ai-solutions.com/_help_Files/two-line_element_set_file.htm#:~:text=Two-Line%20Element%20Sets%20(TLEs,the%20name%20of%20the%20satellite.
+
+after scraping the plaintext, i need a way of interpreting the data to parse the useful values from the text
+
+for that i need useful values.
+useful values include:
+    speed [mean motion {in revolutions per day}]
+    location [longitude derives from RAAN ]
+
+Right Ascension of the Ascending Node[RAAN] = Ω 
+is measured in respect to the first point of aries
+https://www.glyphweb.com/esky/concepts/firstpointofaries.html
+distant star that rotates 1* every 70 years [can assume constant]
+{when the earth reaches the first point of aries, a vernal (spring) equinox occurs}
+
+to convert Ω to earth coords, you need the time [to calculate where the earth is in terms of the first point of aries]
+We get given UT {universal time} [in epochs]
+to find λ, or longitude, you convert UT to GMST [greenwich mean sidreal time]
+
+the formula to convert UT to GMST is
+[using resource: https://www.astro.umd.edu/~jph/GST_eqn.pdf]
+GST = G + 0.0657098244 × d + 1.00273791 × t
+where d = day number of the year, t = UT and G is the constant for the year
+problems arise as this PDF only goes up to 2011, so a value of G needs to be found for this year
+
+Suggested by Jai [stakeholder] to reverse engineer an online converter
+to find time to convert to, use epochs [digits 19-32 of line 1 of TLE]
+
+may perhaps try a different approach: looked online and found a package called PyEphem
+[from forum "https://space.stackexchange.com/questions/4211/calculate-satellite-coordinates-from-tle-data"]
+
+package eror: not showing up, make sure directory is set up properly,
+installed package to path as opposed to default path
+
+fixed by installing python from the microsoft store [why do you have to do that????]
+
+had to change to skyfield, as PyEphem is outdated and does not work with my current function
+instead am using "skyfield' which was suggested by the person who made it
+https://rhodesmill.org/skyfield/
+
+skyfield's documentation says that "Skyfield is able to predict the positions of Earth satellites by loading satellite orbital elements from Two-Line Element (TLE) file"
+but there are several limitations to this
+1. do not expect perfect agreement between all prediction software, there are several different forms of calculation
+{for this project literally anything is fine}, allegedly "Skyfield does use the corrected and updated version of the algorithm that they created as part of writing that report"
+which is nice
+2. the accuracy on the satellites is not perfect, it is limited by the number of decimal places reported on the TLE
+[“The maximum accuracy for a TLE is limited by the number of decimal places in each field. In general, TLE data is accurate to about a kilometer or so at epoch and it quickly degrades.”]
+so whatever i guess theres not much i can do there, and also as long as this shit works yk
+3.satellite elements rapidly get out of date, as there are a lot of factors that change a lot about it
+[https://rhodesmill.org/skyfield/earth-satellites.html]
+BASICALLY FOR WRITEUP COPY LIMs FROM THIS LIST ^^^^^
+
+holy fuck this website literally has every single bit of the first half of this what the hell 
