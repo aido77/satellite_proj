@@ -68,3 +68,34 @@ upon trying this, it appears that the split indicator for this particular string
 
 i need to find the amount of breaks, so i used "bigData.count(\r\n)" and cast it as a string to be able to iterate
 and then to wait three iterations, turning the \r\n into spaces when not applicable, and splitting after the satellite data
+
+was having trouble running the code, apparently did not do anything
+so checked the condition to see if there was any \r\n inside the code, so i could then split it if there were any \r\n
+turns out it is not a boolean output, but a numerical output: if not found, will output -1
+
+there is a type error in the line 'bigData[bigData.find("\r\n"):bigData.find("\r\n"+3)] = "" '
+
+I have split up the "requests" function and the "string split" function into different files, so I can test the modules individually
+
+Worked on the string split function, was unsure about whether the string replacement was working,
+used "bigData.replace(bigData[x],"itworked")" and the .replace function to replace every instance of \r\n with "itworked"
+this may be a problem, as for my code I do not want to replace all instances with space, only 2 out of every three.
+turns out replacing with a range [x:x+3] erases the entire \r\n, leading to all gaps except for those between satellites are eliminated,
+which is what was intended, however this does not split the strings into seperate strings, which is what i would have liked to do
+i will try running this into the main code, and create a better name for the variable instead of "x"
+
+changed variable "x" to lineBreak, which is much more suitable, as it contains an integer value of the corresponing "\r\n" string
+
+attempting to put this into the for function as described earlier to see if i can still split it in situ
+removed "linesTotal" as instead of iterating through a set time, I will use a "while" loop while there are still line breaks in newData
+
+have found issue where string split needs to be assigned to a variable in order to have a change.
+also cannot do a "find" in list, am getting that error, assumed that everything is getting split
+to ensure this doesn't split the entire list, can use maxsplit = 1 to make sure it only splits when lineCount == 3
+and then it splits once as opposed to at every instance of \r\n
+to get over this, i don't need the .replace function, just to find the index of the list that has \r\n, and replace the first 4 chars with ""
+
+also lists do not have the function "split"
+will then need to find the equivalent to split in lists, and ensure that the list function runs after the first newData.split has been run
+may need to create new variable of "loops" that contains the amount of times the while loop has run, this should be close to obsolete var "linesTotal"
+also creates new insight into what the fuck is going wrong with this :)
