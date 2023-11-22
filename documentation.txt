@@ -58,6 +58,13 @@ which is nice
 so whatever i guess theres not much i can do there, and also as long as this shit works yk
 3.satellite elements rapidly get out of date, as there are a lot of factors that change a lot about it
 [https://rhodesmill.org/skyfield/earth-satellites.html]
-BASICALLY FOR WRITEUP COPY LIMs FROM THIS LIST ^^^^^
+BASICALLY FOR WRITEUP COPY limitations FROM THIS LIST ^^^^^
 
-holy fuck this website literally has every single bit of the first half of this what the hell 
+holy fuck this website literally has every single bit of the first half of this what the hell
+
+to start calculating the positions of every individual satellite, i need to manipulate big string
+contains lots of linebreaks, interpreted in python as "/n", so by using the split function on the string, you can create new strings
+upon trying this, it appears that the split indicator for this particular string is '\r\n' so i will attempt to do that
+
+i need to find the amount of breaks, so i used "bigData.count(\r\n)" and cast it as a string to be able to iterate
+and then to wait three iterations, turning the \r\n into spaces when not applicable, and splitting after the satellite data
