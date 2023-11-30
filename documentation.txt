@@ -98,6 +98,108 @@ to get over this, i don't need the .replace function, just to find the index of 
 also lists do not have the function "split"
 will then need to find the equivalent to split in lists, and ensure that the list function runs after the first newData.split has been run
 may need to create new variable of "loops" that contains the amount of times the while loop has run, this should be close to obsolete var "linesTotal"
+also creates new insight into what the fuck is going wrong with this :)
+
+okay, good news, my computer at home has no problem importing skyfield.api, which is not confusing me in the slightest at all but we ball
+                        || SATELLITE SCRAPE PROJECT ||
+
+this project is supposed to be a project where I scrape data from the internet 
+and use it to create a [3d??] model and plot the data that has been scraped
+
+iteration 1: using the defined "request" library to scrape data from celestrak NORAD elements
+    specifically the "disaster monitoring" satellites [about 10]
+for disaster modelling satellites, read here https://en.wikipedia.org/wiki/Disaster_Monitoring_Constellation
+and for the TLE [two line element] data is taken from https://celestrak.org/NORAD/elements/gp.php?GROUP=dmc&FORMAT=tle here
+to see what the values of the TLE mean, see here: https://ai-solutions.com/_help_Files/two-line_element_set_file.htm#:~:text=Two-Line%20Element%20Sets%20(TLEs,the%20name%20of%20the%20satellite.
+
+after scraping the plaintext, i need a way of interpreting the data to parse the useful values from the text
+
+for that i need useful values.
+useful values include:
+    speed [mean motion {in revolutions per day}]
+    location [longitude derives from RAAN ]
+
+Right Ascension of the Ascending Node[RAAN] = Ω 
+is measured in respect to the first point of aries
+https://www.glyphweb.com/esky/concepts/firstpointofaries.html
+distant star that rotates 1* every 70 years [can assume constant]
+{when the earth reaches the first point of aries, a vernal (spring) equinox occurs}
+
+to convert Ω to earth coords, you need the time [to calculate where the earth is in terms of the first point of aries]
+We get given UT {universal time} [in epochs]
+to find λ, or longitude, you convert UT to GMST [greenwich mean sidreal time]
+
+the formula to convert UT to GMST is
+[using resource: https://www.astro.umd.edu/~jph/GST_eqn.pdf]
+GST = G + 0.0657098244 × d + 1.00273791 × t
+where d = day number of the year, t = UT and G is the constant for the year
+problems arise as this PDF only goes up to 2011, so a value of G needs to be found for this year
+
+Suggested by Jai [stakeholder] to reverse engineer an online converter
+to find time to convert to, use epochs [digits 19-32 of line 1 of TLE]
+
+may perhaps try a different approach: looked online and found a package called PyEphem
+[from forum "https://space.stackexchange.com/questions/4211/calculate-satellite-coordinates-from-tle-data"]
+
+package eror: not showing up, make sure directory is set up properly,
+installed package to path as opposed to default path
+
+fixed by installing python from the microsoft store [why do you have to do that????]
+
+had to change to skyfield, as PyEphem is outdated and does not work with my current function
+instead am using "skyfield' which was suggested by the person who made it
+https://rhodesmill.org/skyfield/
+
+skyfield's documentation says that "Skyfield is able to predict the positions of Earth satellites by loading satellite orbital elements from Two-Line Element (TLE) file"
+but there are several limitations to this
+1. do not expect perfect agreement between all prediction software, there are several different forms of calculation
+{for this project literally anything is fine}, allegedly "Skyfield does use the corrected and updated version of the algorithm that they created as part of writing that report"
+which is nice
+2. the accuracy on the satellites is not perfect, it is limited by the number of decimal places reported on the TLE
+[“The maximum accuracy for a TLE is limited by the number of decimal places in each field. In general, TLE data is accurate to about a kilometer or so at epoch and it quickly degrades.”]
+so whatever i guess theres not much i can do there, and also as long as this shit works yk
+3.satellite elements rapidly get out of date, as there are a lot of factors that change a lot about it
+[https://rhodesmill.org/skyfield/earth-satellites.html]
+BASICALLY FOR WRITEUP COPY limitations FROM THIS LIST ^^^^^
+
+holy fuck this website literally has every single bit of the first half of this what the hell
+
+to start calculating the positions of every individual satellite, i need to manipulate big string
+contains lots of linebreaks, interpreted in python as "/n", so by using the split function on the string, you can create new strings
+upon trying this, it appears that the split indicator for this particular string is '\r\n' so i will attempt to do that
+
+i need to find the amount of breaks, so i used "bigData.count(\r\n)" and cast it as a string to be able to iterate
+and then to wait three iterations, turning the \r\n into spaces when not applicable, and splitting after the satellite data
+
+was having trouble running the code, apparently did not do anything
+so checked the condition to see if there was any \r\n inside the code, so i could then split it if there were any \r\n
+turns out it is not a boolean output, but a numerical output: if not found, will output -1
+
+there is a type error in the line 'bigData[bigData.find("\r\n"):bigData.find("\r\n"+3)] = "" '
+
+I have split up the "requests" function and the "string split" function into different files, so I can test the modules individually
+
+Worked on the string split function, was unsure about whether the string replacement was working,
+used "bigData.replace(bigData[x],"itworked")" and the .replace function to replace every instance of \r\n with "itworked"
+this may be a problem, as for my code I do not want to replace all instances with space, only 2 out of every three.
+turns out replacing with a range [x:x+3] erases the entire \r\n, leading to all gaps except for those between satellites are eliminated,
+which is what was intended, however this does not split the strings into seperate strings, which is what i would have liked to do
+i will try running this into the main code, and create a better name for the variable instead of "x"
+
+changed variable "x" to lineBreak, which is much more suitable, as it contains an integer value of the corresponing "\r\n" string
+
+attempting to put this into the for function as described earlier to see if i can still split it in situ
+removed "linesTotal" as instead of iterating through a set time, I will use a "while" loop while there are still line breaks in newData
+
+have found issue where string split needs to be assigned to a variable in order to have a change.
+also cannot do a "find" in list, am getting that error, assumed that everything is getting split
+to ensure this doesn't split the entire list, can use maxsplit = 1 to make sure it only splits when lineCount == 3
+and then it splits once as opposed to at every instance of \r\n
+to get over this, i don't need the .replace function, just to find the index of the list that has \r\n, and replace the first 4 chars with ""
+
+also lists do not have the function "split"
+will then need to find the equivalent to split in lists, and ensure that the list function runs after the first newData.split has been run
+may need to create new variable of "loops" that contains the amount of times the while loop has run, this should be close to obsolete var "linesTotal"
 also creates new insight into what is going on
 
 wake up babe, new var dropped: newDataString, where it is 0 if the string has not been split, and 1 if it is split.
@@ -112,3 +214,18 @@ def find_nth(haystack: str, needle: str, n: int) -> int:
     return start
 
 found from https://stackoverflow.com/questions/1883980/find-the-nth-occurrence-of-substring-in-a-string
+
+good news, i just tried this to import skyfield.api and it is currently not throwing a tantrum which is exceptional
+
+also found how to split items into multiple parts lists:
+
+def split_list(lst, chunk_size):
+    return [lst[i:i + chunk_size] for i in range(0, len(lst), chunk_size)]
+
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+chunk_size = 3
+chunks = split_list(numbers, chunk_size)
+
+print("Chunks:", chunks)
+
+from: https://www.altcademy.com/blog/how-to-split-a-list-in-python/
