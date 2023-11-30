@@ -98,4 +98,17 @@ to get over this, i don't need the .replace function, just to find the index of 
 also lists do not have the function "split"
 will then need to find the equivalent to split in lists, and ensure that the list function runs after the first newData.split has been run
 may need to create new variable of "loops" that contains the amount of times the while loop has run, this should be close to obsolete var "linesTotal"
-also creates new insight into what the fuck is going wrong with this :)
+also creates new insight into what is going on
+
+wake up babe, new var dropped: newDataString, where it is 0 if the string has not been split, and 1 if it is split.
+
+using some code I found online, i want to create a new sublist of all of the satellite data between the first and second occurence of 
+
+def find_nth(haystack: str, needle: str, n: int) -> int:
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start+len(needle))
+        n -= 1
+    return start
+
+found from https://stackoverflow.com/questions/1883980/find-the-nth-occurrence-of-substring-in-a-string
