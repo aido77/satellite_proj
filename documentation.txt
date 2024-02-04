@@ -215,7 +215,17 @@ def find_nth(haystack: str, needle: str, n: int) -> int:
 
 found from https://stackoverflow.com/questions/1883980/find-the-nth-occurrence-of-substring-in-a-string
 
-good news, i just tried this to import skyfield.api and it is currently not throwing a tantrum which is exceptional
+turn out i dont need to find every occurence of the string at once, because that uses recursion which is cringe
+
+
+def find_2nd(string, substring):
+   return string.find(substring, string.find(substring) + 1)
+
+this ^^ finds the second part 
+
+good news, i just tried using a different computer to import skyfield.api and it is currently not throwing a tantrum which is exceptional
+
+
 
 also found how to split items into multiple parts lists:
 
@@ -229,3 +239,30 @@ chunks = split_list(numbers, chunk_size)
 print("Chunks:", chunks)
 
 from: https://www.altcademy.com/blog/how-to-split-a-list-in-python/
+
+i decided to make different files for the find 2nd and first occurence of "\r\n" and the split functions 
+so then the split function uses the "chunk size" from the code above to split the thing 
+
+there is a problem that if i pull data too much / too frequently i get temporarily banned from pulling data
+which is not cool, but it means that I have to find a way around that, by having a permanent variable that can be imported
+with the same formatting as the data that is pulled.
+
+https://www.tutorialspoint.com/python_data_persistence/python_data_persistence_quick_guide.htm#:~:text=The%20shelve%20module%20in%20Python%27s,database%20on%20UNIX%20like%20systems.
+this uses data persistence to store items in files. Hopefully this means that it can be stored with the same formatting
+
+update: fuck this, ive dropped out of Monkton and don't even know if im using this project, but we're gonna use the skyfield tuto
+https://rhodesmill.org/skyfield/earth-satellites.html
+why? its more integrated or some shit idk it makes it easier using less libraries and means that there is less points of failure because jesus chrimmas this has a lot of those
+
+this also means I dont have to individually seperate every single fucking thing into a string, its already done for me
+therefore "findchunk.py" is no longer needed, therefore I can cannibalise that code to be able to create a program that isolates the name of the satellite
+i think i can probs do it between the last character of "EarthSattelite_"< and the first character of >"_catalog"
+
+Realised that just finding and replacing "EarthSatellite_" with "" is just a lot easier lmao but my ass is getting kicked because this shit is a list
+https://www.geeksforgeeks.org/python-remove-substring-list-from-string/
+this might help 
+nvm that did not work
+
+switching to plan a again
+
+ok so when you print bigData[1] it just doesnt include it which is interesting, however im finding it hard to print certain sections of the parts of the list
