@@ -266,3 +266,36 @@ nvm that did not work
 switching to plan a again
 
 ok so when you print bigData[1] it just doesnt include it which is interesting, however im finding it hard to print certain sections of the parts of the list
+
+had problem getting current time
+https://www.geeksforgeeks.org/get-utc-timestamp-in-python/
+used datetime import to get it
+
+https://www.programiz.com/python-programming/list
+created new list for list of positions, each no_ of list relates to one satellite, so index 0 will correspond to pos[0]
+
+used the EarthSatellite_ documentation to realise that by calling bigData[0], it gave the whole sha bang [no interpretation needed]
+
+change in plan, by using the coordinates in km from earth's center [x,y,z], it is going to be a lot easier to put that on a 3D plane :)
+
+ts = load.timescale()
+t = ts.now()
+geocentric = bigData.at(t)
+print(geocentric.position.km)
+
+this code, alongside pulling bigData, means that I can *for* loop it and append to a dictionary to be able to have an easily-updateable database yippee
+and, by using pythag of the x and y coords, i can work out the radius and therefore the acceleration, by using the actual tle data things [maybe]
+
+also this also works with the live set of satellite data yippee
+
+so now i have the dictionary, but the "coordinates" are set in an array, so there should be no problem in accessing the coordinates, as i can just temp variable of the array, and then pull from the array
+
+right now i have the "issue" of actually getting the 3d shit working :sobs:
+
+im thinking of using pyvista, as they have a pretty good "earth" model, and I was wondering if i could then still use coordinates, the question is whether the "earth" would face the correct way
+and then theres the issue of the "satellite attrbute display"
+
+it worked first time wtf
+
+first thing i need to do is then change it so the entire thing is illuminated, and then change the background so that it is slightly lighter [have a look at pyvista examples]
+changed to "camera light" so wherever the camera looks, it is illuminated
