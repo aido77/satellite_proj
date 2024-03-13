@@ -1,3 +1,8 @@
+#NOTE: THIS SHIT DOES NOT WORK ANYMORE, I FIGURED OUT A WAY TO BE LESS STUPID, THIS CODE IS NOW OBSELETE
+
+#HUZZAH!!!!!!!!!!!!
+
+
 from requests import bigData
 
 
