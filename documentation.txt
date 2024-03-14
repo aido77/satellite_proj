@@ -299,3 +299,20 @@ it worked first time wtf
 
 first thing i need to do is then change it so the entire thing is illuminated, and then change the background so that it is slightly lighter [have a look at pyvista examples]
 changed to "camera light" so wherever the camera looks, it is illuminated
+
+okay so, huge update
+
+I figured out how to plot things [screenshots of the process]
+and I also figured out how to create models and shit and use coordinates to place things in space
+
+and so now i have a satellite model, and can put it at certain places around this render with different coordinates
+making the HUD may be a little bit difficult, but maybe i can have it to display names or something somewhere????
+
+but now the thing I have to do is make this an object that takes in certain parameters and either
+(1) combine the satellite into one object and have the "center" coords be the input
+(2) keep the satellite as three different objects and offset the wings from the main center by the set amount
+
+either way the "platonic solid" pyvista tuto page [https://tutorial.pyvista.org/tutorial/03_figures/index.html]
+is a great way to start, as it has like a dictionary-esque way of rendering everything, so hopefully this then just works yk
+
+right I have made lots of progress let me just upload this to github so if some shit happens I have backups
