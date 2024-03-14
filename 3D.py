@@ -1,26 +1,15 @@
-import pyvista
+import pyvista as pv
 from pyvista import examples
+from models import *
 
-light = pyvista.Light()
-light.set_camera_light()
-
-
-earth = examples.planets.load_earth(radius=6378.1)
-earth_texture = examples.load_globe_texture()
-earth.translate((-30000.0, 0.0, 0.0))
-
-
-
-pl = pyvista.Plotter(lighting="none")
+pl = pv.Plotter()
+pl.add_mesh(body, color='silver', specular=1.0, specular_power=10)
+pl.add_mesh(wing1, color='lightblue', specular=1.0, specular_power=10)
+pl.add_mesh(wing2, color='lightblue', specular=1.0, specular_power=10)
 
 cubemap = examples.download_cubemap_space_16k()
-
 _ = pl.add_actor(cubemap.to_skybox())
-
 pl.set_environment_texture(cubemap, True)
 
-pl.add_light(light)
 pl.add_mesh(earth, texture=earth_texture, smooth_shading=False)
-
 pl.show()
-
