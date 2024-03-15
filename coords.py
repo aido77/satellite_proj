@@ -25,5 +25,3 @@ while count_sat < numb_Sat:
     #   along with the coordinates as an array
     count_sat = count_sat + 1
     #iterates to the next satellite
-
-print(coords)
