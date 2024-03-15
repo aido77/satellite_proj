@@ -1,7 +1,7 @@
 import pyvista as pv
 #imports pyvista, the rendering thing
-from models import *
-#imports the models, earth and satellites
+from pyvista import examples
+#imports the "examples" so the earth model can be used
 from datascraper import *
 from coords import *
 
@@ -37,7 +37,10 @@ while count_sat < numb_Sat:
     satellite_model(x,y,z)
     count_sat = count_sat + 1
 
-
+earth = examples.planets.load_earth(radius=6378.1)
+#creates the earth with it's set radius
+earth_texture = examples.load_globe_texture()
+#imports earth texture
 
 pl.add_mesh(earth, texture=earth_texture, smooth_shading=False)
 #adds the earth, with the earth texture
