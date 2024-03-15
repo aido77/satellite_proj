@@ -316,3 +316,9 @@ either way the "platonic solid" pyvista tuto page [https://tutorial.pyvista.org/
 is a great way to start, as it has like a dictionary-esque way of rendering everything, so hopefully this then just works yk
 
 right I have made lots of progress let me just upload this to github so if some shit happens I have backups
+
+I have made a ridiculous amount of progress, i created a function that creates and renders the satellite from given coordinates(x,y,z)
+And then used a modified version of the "coordinates" process to go through every satellite, attain the name, look said name up in the dictionary
+which then acertains the coordinates, seperates the coordinates into x,y,z coordinates, and then calls the satellite_plot function which renders the satellite
+
+and now i am almost complete, just need to make the front end stuff and add in compatibility for multiple satellite sets 
