@@ -8,3 +8,5 @@ it is for my computer science a level project
 started 14.11.23
 i do everything here and i should probably continue doing everything here
 feel free to steal my shitass code
+
+also the only library you need to install is Skyfield; see https://rhodesmill.org/skyfield/ <- here
