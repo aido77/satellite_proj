@@ -9,4 +9,4 @@ started 14.11.23
 i do everything here and i should probably continue doing everything here
 feel free to steal my shitass code
 
-also the only library you need to install is Skyfield and PyVista; see https://rhodesmill.org/skyfield/ and https://tutorial.pyvista.org/getting-started.html#getting-started 
+you need to install is Skyfield, PyVista and tkinter; see https://rhodesmill.org/skyfield/ and https://tutorial.pyvista.org/getting-started.html#getting-started and you can figure out tkinter lol
