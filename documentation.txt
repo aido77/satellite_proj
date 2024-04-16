@@ -322,3 +322,6 @@ And then used a modified version of the "coordinates" process to go through ever
 which then acertains the coordinates, seperates the coordinates into x,y,z coordinates, and then calls the satellite_plot function which renders the satellite
 
 and now i am almost complete, just need to make the front end stuff and add in compatibility for multiple satellite sets 
+
+
+icl i forgot about this, theres so much changed, everything is commented, so past here it ain't useful
